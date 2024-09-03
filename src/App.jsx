@@ -83,7 +83,7 @@ function App() {
         }}
       >
         <div
-          className="relative max-w-full w-full"
+          className="content-area relative max-w-full w-full"
           style={{ height: "calc(100vh - 48px)" }}
         >
           {folders.map((folder) => (

@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
+import NotepadWindow from "../windows/NotepadWindow";
 
 const DraggableFolder = ({
   icon,
@@ -10,6 +11,7 @@ const DraggableFolder = ({
 }) => {
   const [position, setPosition] = useState({ x: initialX, y: initialY });
   const [isDragging, setIsDragging] = useState(false);
+  const [showNotepad, setShowNotepad] = useState(false);
   const ref = useRef(null);
 
   const handleMouseDown = (e) => {
@@ -35,6 +37,13 @@ const DraggableFolder = ({
         newX = Math.max(0, Math.min(newX, containerRect.width - folderWidth));
         newY = Math.max(0, Math.min(newY, containerRect.height - folderHeight));
 
+        // Görev çubuğunu dikkate alarak alt sınırı ayarla
+        const taskbarHeight = 48; // Görev çubuğu yüksekliği
+        newY = Math.min(
+          newY,
+          containerRect.height - folderHeight - taskbarHeight
+        );
+
         setPosition({ x: newX, y: newY });
 
         // Move eventini tetikle
@@ -49,6 +58,12 @@ const DraggableFolder = ({
     onEndMove && onEndMove(ref.current.id, position);
   }, [onEndMove, position]);
 
+  const handleDoubleClick = () => {
+    if (name === "Notepad") {
+      setShowNotepad(true);
+    }
+  };
+
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
@@ -59,20 +74,25 @@ const DraggableFolder = ({
   }, [handleMouseMove, handleMouseUp]);
 
   return (
-    <div
-      className="pale-bg w-[60px] overflow-hidden flex-col absolute select-none text-center hover:bg-paleWhite text-3xl z-50"
-      ref={ref}
-      id={position.id}
-      style={{
-        left: position.x,
-        top: position.y,
-        zIndex: 50,
-      }}
-      onMouseDown={handleMouseDown}
-    >
-      {icon}
-      <div className="text-white text-xs">{name}</div>
-    </div>
+    <>
+      <div
+        className="pale-bg w-[60px] overflow-hidden flex-col absolute select-none text-center hover:bg-paleWhite text-3xl z-50"
+        ref={ref}
+        id={position.id}
+        style={{
+          left: position.x,
+          top: position.y,
+          zIndex: 50,
+        }}
+        onMouseDown={handleMouseDown}
+        onDoubleClick={handleDoubleClick}
+      >
+        {icon}
+        <div className="text-white text-xs">{name}</div>
+      </div>
+
+      {showNotepad && <NotepadWindow onClose={() => setShowNotepad(false)} />}
+    </>
   );
 };
 

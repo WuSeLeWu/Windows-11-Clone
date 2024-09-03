@@ -1,3 +1,47 @@
 body {
   overflow: hidden;
 }
+
+/* Taskbar.css */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 48px;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.start-button {
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* StartMenu.css */
+.start-menu {
+  position: absolute;
+  bottom: 48px; /* Adjust based on the taskbar height */
+  left: 10px;   /* Align with the start button */
+  width: 250px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  animation: slide-up 0.3s ease-out;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
