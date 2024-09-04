@@ -1,11 +1,14 @@
 import React from "react";
 
-const Taskbar = () => {
+const Taskbar = ({ onStartButtonClick }) => {
   return (
     <div className="z-[999] flex justify-between px-4 absolute bottom-0 left-0 w-full h-12 backdrop-blur-lg bg-black bg-opacity-50 border-t border-white border-opacity-20 ">
       <div className="w-48 mr-2"></div>
       <nav className="flex h-full items-center gap-1.5">
-        <div className="pale-bg hover:bg-paleWhite">
+        <div
+          className="pale-bg hover:bg-paleWhite"
+          onClick={onStartButtonClick}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
@@ -15,19 +18,19 @@ const Taskbar = () => {
             viewBox="0 0 48 48"
           >
             <path
-              fill="#0077d4"
+              fill="#29b6f6"
               d="M7,6h15c0.552,0,1,0.448,1,1v15c0,0.552-0.448,1-1,1H7c-0.552,0-1-0.448-1-1V7	C6,6.448,6.448,6,7,6z"
             ></path>
             <path
-              fill="#0077d4"
+              fill="#29b6f6"
               d="M25.042,21.958V7c0-0.552,0.448-1,1-1H41c0.552,0,1,0.448,1,1v14.958	c0,0.552-0.448,1-1,1H26.042C25.489,22.958,25.042,22.511,25.042,21.958z"
             ></path>
             <path
-              fill="#0077d4"
+              fill="#29b6f6"
               d="M7,25h15c0.552,0,1,0.448,1,1v15c0,0.552-0.448,1-1,1H7c-0.552,0-1-0.448-1-1V26	C6,25.448,6.448,25,7,25z"
             ></path>
             <path
-              fill="#0077d4"
+              fill="#29b6f6"
               d="M25,41V26c0-0.552,0.448-1,1-1h15c0.552,0,1,0.448,1,1v15c0,0.552-0.448,1-1,1H26	C25.448,42,25,41.552,25,41z"
             ></path>
           </svg>

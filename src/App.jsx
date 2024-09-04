@@ -3,6 +3,7 @@ import "./App.css";
 import Taskbar from "./components/footer-taskbar/Taskbar";
 import DraggableFolder from "./components/helper-components/DraggableFolder";
 import SelectionBox from "./components/helper-components/SelectionBox";
+import StartMenu from "./components/footer-taskbar/StartMenu";
 
 function App() {
   const [folders, setFolders] = useState([
@@ -63,7 +64,6 @@ function App() {
       initialY: 260,
     },
   ]);
-
   const handleMove = (id, newPosition) => {
     setFolders((prevFolders) =>
       prevFolders.map((folder) =>
@@ -74,6 +74,11 @@ function App() {
 
   const handleEndMove = (id, position) => {};
 
+  const [isStartMenuVisible, setIsStartMenuVisible] = useState(false);
+
+  const toggleStartMenu = () => {
+    setIsStartMenuVisible((prev) => !prev);
+  };
   return (
     <>
       <div
@@ -86,6 +91,7 @@ function App() {
           className="content-area relative max-w-full w-full"
           style={{ height: "calc(100vh - 48px)" }}
         >
+          {isStartMenuVisible && <StartMenu />}
           {folders.map((folder) => (
             <DraggableFolder
               key={folder.id}
@@ -101,7 +107,7 @@ function App() {
           ))}
           <SelectionBox />
         </div>
-        <Taskbar />
+        <Taskbar onStartButtonClick={toggleStartMenu} />
       </div>
     </>
   );
