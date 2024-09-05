@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Windows-11-Clone/static/css/main.acd81d1e.css",
+    "main.js": "/Windows-11-Clone/static/js/main.d5506cae.js",
+    "index.html": "/Windows-11-Clone/index.html",
+    "main.acd81d1e.css.map": "/Windows-11-Clone/static/css/main.acd81d1e.css.map",
+    "main.d5506cae.js.map": "/Windows-11-Clone/static/js/main.d5506cae.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.acd81d1e.css",
+    "static/js/main.d5506cae.js"
+  ]
+}
