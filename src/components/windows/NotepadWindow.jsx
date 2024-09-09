@@ -5,8 +5,8 @@ const NotepadWindow = ({ onClose }) => {
   return (
     <Rnd
       default={{
-        x: 100,
-        y: 100,
+        x: 20,
+        y: 50,
         width: 700,
         height: 320,
       }}
@@ -24,7 +24,7 @@ const NotepadWindow = ({ onClose }) => {
         topLeft: true,
       }}
       dragHandleClassName="window-header"
-      className="bg-defaultDarkColor absolute top-24 left-24 z-[60] border border-gray-600 rounded-md flex flex-col overflow-hidden"
+      className="bg-defaultDarkColor notepad-mw absolute top-24 left-24 z-[60] border border-gray-600 rounded-md flex flex-col overflow-hidden"
     >
       <div className="window-header bg-thirdDarkColor">
         <div className="h-10 flex">

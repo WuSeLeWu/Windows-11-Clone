@@ -728,7 +728,7 @@ const StartMenu = () => {
 
   return (
     <div className="w-full h-full flex items-end">
-      <div className="z-[999] w-[40rem] flex flex-col mb-3 h-[90%] mx-auto bg-startMenu  border border-gray-700 rounded-xl select-none">
+      <div className="z-[999] w-[40rem]  flex flex-col mb-3 h-[90%] mx-auto bg-startMenu  border border-gray-700 rounded-xl select-none">
         <div className="flex flex-col h-full backdrop-blur-xl bg-opacity-50 md:p-8 rounded-t-xl">
           <div className="flex items-center gap-2 px-3 bg-thirdDarkColor text-white  border border-gray-700 rounded-2xl  py-1 lg:mb-9 sm:mb-4 md:mx-0 my-3 mx-3">
             <svg
@@ -822,7 +822,7 @@ const StartMenu = () => {
             <img
               width="35"
               height="35"
-              src="img/baby.jpg"
+              src={`${process.env.PUBLIC_URL}/img/baby.jpg`}
               className="rounded-full"
               alt="user-male-circle--v1"
             />
