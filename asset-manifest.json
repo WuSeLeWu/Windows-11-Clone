@@ -1,13 +1,15 @@
 {
   "files": {
-    "main.css": "/Windows-11-Clone/static/css/main.acd81d1e.css",
-    "main.js": "/Windows-11-Clone/static/js/main.8ddc8591.js",
+    "main.css": "/Windows-11-Clone/static/css/main.2fe44659.css",
+    "main.js": "/Windows-11-Clone/static/js/main.375ed8e6.js",
+    "static/media/win11-bg-dark.jpg": "/Windows-11-Clone/static/media/win11-bg-dark.875af2bec7bbf295479f.jpg",
+    "static/media/baby.jpg": "/Windows-11-Clone/static/media/baby.e816c09caeb7a30e73df.jpg",
     "index.html": "/Windows-11-Clone/index.html",
-    "main.acd81d1e.css.map": "/Windows-11-Clone/static/css/main.acd81d1e.css.map",
-    "main.8ddc8591.js.map": "/Windows-11-Clone/static/js/main.8ddc8591.js.map"
+    "main.2fe44659.css.map": "/Windows-11-Clone/static/css/main.2fe44659.css.map",
+    "main.375ed8e6.js.map": "/Windows-11-Clone/static/js/main.375ed8e6.js.map"
   },
   "entrypoints": [
-    "static/css/main.acd81d1e.css",
-    "static/js/main.8ddc8591.js"
+    "static/css/main.2fe44659.css",
+    "static/js/main.375ed8e6.js"
   ]
 }
