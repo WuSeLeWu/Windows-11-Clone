@@ -34,7 +34,7 @@ function App() {
       >
         <div
           className="content-area relative max-w-full w-full"
-          style={{ height: "calc(100vh - 48px)" }}
+          style={{ height: "calc(100svh - 48px)" }}
         >
           {isStartMenuVisible && <StartMenu />}
           {folders.map((folder) => (

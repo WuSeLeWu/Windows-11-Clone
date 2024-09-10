@@ -10,7 +10,7 @@ import {
 const StartMenu = () => {
   return (
     <div className="w-full h-full flex items-end">
-      <div className="z-[999] w-[40rem]  flex flex-col mb-3 h-[90%] mx-auto bg-startMenu  border border-gray-700 rounded-xl select-none">
+      <div className="z-[999] w-[40rem]  flex flex-col mb-3 h-[95%] md:h-[90%] mx-2 md:mx-auto bg-startMenu  border border-gray-700 rounded-xl select-none">
         <div className="flex flex-col h-full backdrop-blur-xl bg-opacity-50 md:p-8 rounded-t-xl">
           <div className="flex items-center gap-2 px-3 bg-thirdDarkColor text-white  border border-gray-700 rounded-2xl  py-1 lg:mb-9 sm:mb-4 md:mx-0 my-3 mx-3">
             <span className="w-4">{searchIcon}</span>
@@ -35,7 +35,7 @@ const StartMenu = () => {
                   .map((folder) => (
                     <li
                       key={folder.id}
-                      className="flex rounded-md gap-2 flex-col  items-center hover:bg-paleWhite p-2 text-xs w-[5.96rem] max-h-22"
+                      className="flex rounded-md gap-1 md:gap-2 flex-col  items-center hover:bg-paleWhite p-2 text-xs w-[5.76rem] md:w-[5.96rem] max-h-22"
                     >
                       <div className="w-9 h-9">{folder.icon}</div>
                       <span className="text-center">{folder.text}</span>

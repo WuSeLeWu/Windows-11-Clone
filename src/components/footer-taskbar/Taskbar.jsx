@@ -9,7 +9,7 @@ import {
 const Taskbar = ({ onStartButtonClick }) => {
   return (
     <div className="z-[999] flex justify-between px-4 absolute bottom-0 left-0 w-full h-12 backdrop-blur-lg bg-black bg-opacity-50 border-t border-white border-opacity-20 ">
-      <div className="w-48 mr-2"></div>
+      <div className="w-48 mr-2 hidden md:block"></div>
       <nav className="flex h-full items-center gap-1.5">
         <div
           className="pale-bg hover:bg-paleWhite"
