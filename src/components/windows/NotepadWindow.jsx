@@ -7,7 +7,7 @@ import {
   squareIcon,
   dashIcon,
   plusIcon,
-} from "../../constanst/icons";
+} from "../../constanst/ico-img-source";
 
 const NotepadWindow = ({ onClose }) => {
   return (

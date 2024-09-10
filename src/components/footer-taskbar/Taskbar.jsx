@@ -4,7 +4,7 @@ import {
   windowsIcon,
   chevronUpIcon,
   notificationIcon,
-} from "../../constanst/icons";
+} from "../../constanst/ico-img-source";
 
 const Taskbar = ({ onStartButtonClick }) => {
   return (

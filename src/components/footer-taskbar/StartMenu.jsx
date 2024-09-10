@@ -1,10 +1,11 @@
 import React from "react";
 import { startApps } from "../../constanst/data.js";
+import { babyYoda } from "../../constanst/ico-img-source.js";
 import {
   searchIcon,
   chevronRightIcon,
   powerIcon,
-} from "../../constanst/icons.js";
+} from "../../constanst/ico-img-source.js";
 
 const StartMenu = () => {
   return (
@@ -79,7 +80,7 @@ const StartMenu = () => {
             <img
               width="35"
               height="35"
-              src={`${process.env.PUBLIC_URL}/img/baby.jpg`}
+              src={babyYoda}
               className="rounded-full"
               alt="user-male-circle--v1"
             />

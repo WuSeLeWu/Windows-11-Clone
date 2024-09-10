@@ -15,7 +15,7 @@ import {
   pcIcon,
   explorerFileIcon,
   recycleBinIcon,
-} from "./icons";
+} from "./ico-img-source";
 
 export const startApps = [
   {

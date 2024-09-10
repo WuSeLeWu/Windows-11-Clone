@@ -5,6 +5,7 @@ import DraggableFolder from "./components/helper-components/DraggableFolder";
 import SelectionBox from "./components/helper-components/SelectionBox";
 import StartMenu from "./components/footer-taskbar/StartMenu";
 import { windowApps } from "./constanst/data.js";
+import { w11BgDark } from "./constanst/ico-img-source.js";
 
 function App() {
   const [folders, setFolders] = useState(windowApps);
@@ -28,7 +29,7 @@ function App() {
       <div
         className="w-full h-screen relative"
         style={{
-          background: `url(${process.env.PUBLIC_URL}/img/win11-bg-dark.jpg) center center / cover`,
+          background: `url(${w11BgDark}) center center / cover`,
         }}
       >
         <div
