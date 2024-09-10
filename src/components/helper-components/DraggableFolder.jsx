@@ -87,7 +87,7 @@ const DraggableFolder = ({
         onMouseDown={handleMouseDown}
         onDoubleClick={handleDoubleClick}
       >
-        {icon}
+        <span className="w-10">{icon}</span>
         <div className="text-white text-xs">{name}</div>
       </div>
 
