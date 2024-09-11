@@ -133,6 +133,13 @@ export const windowApps = [
     initialX: 15,
     initialY: 260,
   },
+  {
+    id: 5,
+    icon: chromeIcon,
+    name: "Chrome",
+    initialX: 15,
+    initialY: 350,
+  },
 ];
 
 export const centerTaskbarApps = [chromeIcon, vsCodeIcon];

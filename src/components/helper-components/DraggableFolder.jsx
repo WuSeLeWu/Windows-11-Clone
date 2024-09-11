@@ -1,5 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import NotepadWindow from "../windows/NotepadWindow";
+import ChromeWindow from "../windows/ChromeWindow";
 
 const DraggableFolder = ({
   icon,
@@ -12,6 +13,7 @@ const DraggableFolder = ({
   const [position, setPosition] = useState({ x: initialX, y: initialY });
   const [isDragging, setIsDragging] = useState(false);
   const [showNotepad, setShowNotepad] = useState(false);
+  const [showChrome, setShowChrome] = useState(false);
   const ref = useRef(null);
 
   const handleMouseDown = (e) => {
@@ -62,6 +64,9 @@ const DraggableFolder = ({
     if (name === "Notepad") {
       setShowNotepad(true);
     }
+    if (name === "Chrome") {
+      setShowChrome(true);
+    }
   };
 
   useEffect(() => {
@@ -92,6 +97,7 @@ const DraggableFolder = ({
       </div>
 
       {showNotepad && <NotepadWindow onClose={() => setShowNotepad(false)} />}
+      {showChrome && <ChromeWindow onClose={() => setShowChrome(false)} />}
     </>
   );
 };

@@ -10,6 +10,11 @@ module.exports = {
         secondaryDarkColor: "#1A2030",
         thirdDarkColor: "#020B1A",
         placeholderColor: "#9c9191",
+
+        chromePrimaryColor: "#000",
+        chromeSecondaryColor: "#282727",
+        chromeTextColor: "#fafafa", //#dabfd2
+        chromeText2Color: "#867581",
       },
     },
   },
