@@ -53,12 +53,17 @@ const useDraggable = (initialX, initialY, onMove, onEndMove) => {
 };
 
 const DraggableFolder = ({
+  id,
   icon,
   name,
   initialX,
   initialY,
   onMove,
   onEndMove,
+  onOpenWindow, // Pencere açıldığında çağırılacak fonksiyon
+  onCloseWindow, // Pencere kapandığında çağırılacak fonksiyon
+  onMinimizeWindow, // Pencereyi minimize etmek için
+  minimized, // Pencere minimize edilmiş mi
 }) => {
   const { ref, position, handleMouseDown } = useDraggable(
     initialX,
@@ -71,14 +76,36 @@ const DraggableFolder = ({
 
   const handleDoubleClick = () => {
     setOpenWindow(name);
+    onOpenWindow(name, icon); // Pencere açıldığında görev çubuğuna ekle
+  };
+
+  const handleMinimize = () => {
+    onMinimizeWindow(name); // Pencere minimize edildiğinde durumu bildir
   };
 
   const renderWindow = () => {
+    if (minimized) return null; // Minimize edilirse pencereyi gizle
     switch (openWindow) {
       case "Notepad":
-        return <NotepadWindow onClose={() => setOpenWindow(null)} />;
+        return (
+          <NotepadWindow
+            onClose={() => {
+              setOpenWindow(null);
+              onCloseWindow(name); // Pencere kapandığında görev çubuğundan çıkar
+            }}
+            onMinimize={handleMinimize} // Minimize işlevi eklendi
+          />
+        );
       case "Chrome":
-        return <ChromeWindow onClose={() => setOpenWindow(null)} />;
+        return (
+          <ChromeWindow
+            onClose={() => {
+              setOpenWindow(null);
+              onCloseWindow(name); // Pencere kapandığında görev çubuğundan çıkar
+            }}
+            onMinimize={handleMinimize} // Minimize işlevi eklendi
+          />
+        );
       default:
         return null;
     }
@@ -89,7 +116,7 @@ const DraggableFolder = ({
       <div
         className="pale-bg w-[60px] flex-col absolute select-none text-center hover:bg-paleWhite text-3xl z-50"
         ref={ref}
-        id={position.id}
+        id={id}
         style={{
           left: position.x,
           top: position.y,

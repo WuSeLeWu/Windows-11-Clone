@@ -88,7 +88,7 @@ const ChromeWindow = ({ onClose }) => {
             <div className="p-2 mx-1.5 mb-1.5 text-white rounded-[0.60rem] bg-chromePrimaryColor flex justify-center items-center">
               <span className="w-2.5 h-2.5 block ">{chevronDownIcon}</span>
             </div>
-            <div className="w-[27%] min-w-[7.5rem] select-none py-2 rounded-tl-lg font-thin rounded-tr-lg px-2 text-chromeTextColor text-xs  flex bg-chromePrimaryColor">
+            <div className="w-[27%] min-w-[6,25rem] max-w-[15rem] min-w-[7.5rem] select-none py-2 rounded-tl-lg font-thin rounded-tr-lg px-2 text-chromeTextColor text-xs  flex bg-chromePrimaryColor">
               <span className="w-4 h-4 mr-2 block">{chromeVectorIcon}</span>
               <span>New Tab</span>
               <span

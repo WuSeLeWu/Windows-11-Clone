@@ -9,6 +9,7 @@ import { w11BgDark } from "./constanst/ico-img-source.js";
 
 function App() {
   const [folders, setFolders] = useState(windowApps);
+  const [openWindows, setOpenWindows] = useState([]); // Açılan pencereleri tutan state
   const handleMove = (id, newPosition) => {
     setFolders((prevFolders) =>
       prevFolders.map((folder) =>
@@ -17,13 +18,33 @@ function App() {
     );
   };
 
-  const handleEndMove = (id, position) => {};
+  const handleEndMove = (id, position) => {
+    console.log(
+      `Move ended for folder with ID: ${id}, final position:`,
+      position
+    );
+  };
 
   const [isStartMenuVisible, setIsStartMenuVisible] = useState(false);
 
   const toggleStartMenu = () => {
     setIsStartMenuVisible((prev) => !prev);
   };
+
+  // Pencere açıldığında görev çubuğuna ekle
+  const handleOpenWindow = (name, icon) => {
+    setOpenWindows((prev) => {
+      // Eğer zaten açıksa, tekrar ekleme
+      if (prev.some((window) => window.name === name)) return prev;
+      return [...prev, { name, icon }];
+    });
+  };
+
+  // Pencere kapandığında görev çubuğundan çıkar
+  const handleCloseWindow = (name) => {
+    setOpenWindows((prev) => prev.filter((window) => window.name !== name));
+  };
+
   return (
     <>
       <div
@@ -49,11 +70,16 @@ function App() {
               style={folder.style}
               onMove={handleMove}
               onEndMove={handleEndMove}
+              onOpenWindow={handleOpenWindow} // Pencere açıldığında görev çubuğuna ekler
+              onCloseWindow={handleCloseWindow} // Pencere kapandığında görev çubuğundan çıkarır
             />
           ))}
           <SelectionBox />
         </div>
-        <Taskbar onStartButtonClick={toggleStartMenu} />
+        <Taskbar
+          onStartButtonClick={toggleStartMenu}
+          openWindows={openWindows} // Görev çubuğuna açık pencereleri gönder
+        />
       </div>
     </>
   );

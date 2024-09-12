@@ -1,12 +1,12 @@
 import React from "react";
-import { centerTaskbarApps, rightTaskbarApps } from "../../constanst/data";
+import { rightTaskbarApps } from "../../constanst/data";
 import {
   windowsIcon,
   chevronUpIcon,
   notificationIcon,
 } from "../../constanst/ico-img-source";
 
-const Taskbar = ({ onStartButtonClick }) => {
+const Taskbar = ({ onStartButtonClick, openWindows, onTaskbarIconClick }) => {
   return (
     <div className="z-[999] flex justify-between px-4 absolute bottom-0 left-0 w-full h-12 backdrop-blur-lg bg-black bg-opacity-50 border-t border-white border-opacity-20 ">
       <div className="w-48 mr-2 hidden md:block"></div>
@@ -17,9 +17,9 @@ const Taskbar = ({ onStartButtonClick }) => {
         >
           <span className="w-8 h-8">{windowsIcon}</span>
         </div>
-        {centerTaskbarApps.map((apps, i) => (
-          <div key={i} className="pale-bg hover:bg-paleWhite ">
-            <span className="w-8 h-8">{apps}</span>
+        {openWindows.map((window, i) => (
+          <div key={i} className="pale-bg hover:bg-paleWhite">
+            <span className="w-8 h-8">{window.icon}</span>
           </div>
         ))}
       </nav>
