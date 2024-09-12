@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Rnd } from "react-rnd";
 import {
   notepadIcon,
@@ -7,32 +7,68 @@ import {
   squareIcon,
   dashIcon,
   plusIcon,
+  resizeScreenIcon,
 } from "../../constanst/ico-img-source";
 
 const NotepadWindow = ({ onClose }) => {
-  return (
-    <Rnd
-      default={{
-        x: 20,
-        y: 50,
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: 700,
+    height: 320,
+    x: 20,
+    y: 50,
+  });
+
+  const handleMaximize = () => {
+    if (!isMaximized) {
+      setWindowSize({
+        width: "100%",
+        height: "100%",
+        x: 0,
+        y: 0,
+      });
+    } else {
+      setWindowSize({
         width: 700,
         height: 320,
+        x: 20,
+        y: 50,
+      });
+    }
+    setIsMaximized(!isMaximized); 
+  };
+
+  return (
+    <Rnd
+      size={{ width: windowSize.width, height: windowSize.height }}
+      position={{ x: windowSize.x, y: windowSize.y }}
+      onDragStop={(e, d) => setWindowSize({ ...windowSize, x: d.x, y: d.y })}
+      onResizeStop={(e, direction, ref, delta, position) => {
+        setWindowSize({
+          width: ref.style.width,
+          height: ref.style.height,
+          ...position,
+        });
       }}
       minWidth={322}
       minHeight={190}
-      bounds="window"
-      enableResizing={{
-        top: true,
-        right: true,
-        bottom: true,
-        left: true,
-        topRight: true,
-        bottomRight: true,
-        bottomLeft: true,
-        topLeft: true,
-      }}
+      bounds=".content-area"
+      enableResizing={
+        !isMaximized && {
+          top: true,
+          right: true,
+          bottom: true,
+          left: true,
+          topRight: true,
+          bottomRight: true,
+          bottomLeft: true,
+          topLeft: true,
+        }
+      }
       dragHandleClassName="window-header"
-      className="bg-defaultDarkColor notepad-mw absolute top-24 left-24 z-[60] border border-gray-600 rounded-md flex flex-col overflow-hidden"
+      className={`bg-defaultDarkColor notepad-mw absolute top-24 left-24 z-[60] ${
+        !isMaximized && "border"
+      }  border-gray-600 rounded-md flex flex-col overflow-hidden`}
     >
       <div className="window-header bg-thirdDarkColor">
         <div className="h-10 flex">
@@ -40,7 +76,7 @@ const NotepadWindow = ({ onClose }) => {
             <div className="my-1.5 px-3">
               <span className="w-5 h-5 block">{notepadIcon}</span>
             </div>
-            <div className="w-[25%] min-w-[100px] select-none py-1.5 rounded-tl-lg rounded-tr-lg px-3 text-white text-xs font-medium flex bg-secondaryDarkColor">
+            <div className="w-[25%] min-w-[6,25rem] max-w-[15rem] select-none py-1.5 rounded-tl-lg rounded-tr-lg px-3 text-white text-xs font-medium flex bg-secondaryDarkColor">
               <span>Untitle</span>
               <span
                 onClick={onClose}
@@ -57,8 +93,13 @@ const NotepadWindow = ({ onClose }) => {
             <button className="text-white py-2 px-4 hover:bg-paleWhite">
               <span className="w-3 h-3 block">{dashIcon}</span>
             </button>
-            <button className="text-white py-2 px-4 hover:bg-paleWhite">
-              <span className="w-3 h-3 block">{squareIcon}</span>
+            <button
+              onClick={handleMaximize}
+              className="text-white py-2 px-4 hover:bg-paleWhite"
+            >
+              <span className="w-3 h-3 block">
+                {!isMaximized ? squareIcon : resizeScreenIcon}
+              </span>
             </button>
             <button
               onClick={onClose}

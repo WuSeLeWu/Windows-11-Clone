@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Rnd } from "react-rnd";
 import {
   chromeVectorIcon,
@@ -21,31 +21,66 @@ import {
   micColoredIcon,
   cameraIcon,
   penIcon,
+  resizeScreenIcon,
 } from "../../constanst/ico-img-source";
 const ChromeWindow = ({ onClose }) => {
-  return (
-    <Rnd
-      default={{
-        x: 20,
-        y: 50,
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: 700,
+    height: 320,
+    x: 20,
+    y: 50,
+  });
+
+  const handleMaximize = () => {
+    if (!isMaximized) {
+      setWindowSize({
+        width: "100%",
+        height: "100%",
+        x: 0,
+        y: 0,
+      });
+    } else {
+      setWindowSize({
         width: 1000,
         height: 520,
+        x: 20,
+        y: 50,
+      });
+    }
+    setIsMaximized(!isMaximized);
+  };
+  return (
+    <Rnd
+      size={{ width: windowSize.width, height: windowSize.height }}
+      position={{ x: windowSize.x, y: windowSize.y }}
+      onDragStop={(e, d) => setWindowSize({ ...windowSize, x: d.x, y: d.y })}
+      onResizeStop={(e, direction, ref, delta, position) => {
+        setWindowSize({
+          width: ref.style.width,
+          height: ref.style.height,
+          ...position,
+        });
       }}
       minWidth={322}
-      minHeight={190}
-      bounds="window"
-      enableResizing={{
-        top: true,
-        right: true,
-        bottom: true,
-        left: true,
-        topRight: true,
-        bottomRight: true,
-        bottomLeft: true,
-        topLeft: true,
-      }}
+      minHeight={465}
+      bounds=".content-area"
+      enableResizing={
+        !isMaximized && {
+          top: true,
+          right: true,
+          bottom: true,
+          left: true,
+          topRight: true,
+          bottomRight: true,
+          bottomLeft: true,
+          topLeft: true,
+        }
+      }
       dragHandleClassName="window-header"
-      className="notepad-mw absolute top-24 left-24 z-[60] border border-gray-600 rounded-md flex flex-col overflow-hidden"
+      className={`notepad-mw absolute top-24 left-24 z-[60] ${
+        !isMaximized && "border"
+      } border-gray-600 rounded-md flex flex-col overflow-hidden`}
     >
       <div className="window-header h-22 bg-chromeSecondaryColor">
         <div className="h-10 flex">
@@ -71,9 +106,12 @@ const ChromeWindow = ({ onClose }) => {
             <button className="text-white py-2 px-4 hover:bg-chromePrimaryColor">
               <span className="w-3.5 h-2.5 block">{dashIcon}</span>
             </button>
-            <button className="text-white py-2 px-4 hover:bg-chromePrimaryColor">
+            <button
+              onClick={handleMaximize}
+              className="text-white py-2 px-4 hover:bg-chromePrimaryColor"
+            >
               <span className="w-[0.65rem] h-[0.65rem] block">
-                {squareIcon}
+                {!isMaximized ? squareIcon : resizeScreenIcon}
               </span>
             </button>
             <button
@@ -122,7 +160,10 @@ const ChromeWindow = ({ onClose }) => {
           </div>
         </div>
       </div>
-      <div className=" w-full h-full border-0  text-xs p-3 resize-none outline-none text-white bg-chromePrimaryColor">
+      <div
+        style={{ height: "calc(100% - 80px )" }}
+        className="relative w-full border-0  text-xs p-3 resize-none outline-none text-white bg-chromePrimaryColor"
+      >
         <div className="w-full gap-3 flex justify-end items-center">
           <div className="text-xs text-white cursor-pointer hover:underline">
             Gmail
@@ -136,20 +177,22 @@ const ChromeWindow = ({ onClose }) => {
         </div>
         <div className="text-white w-full z-50">
           <div className="mx-auto mt-10 w-72 h-40">{googleLogoIcon}</div>
-          <div className="flex z-20 relative  gap-2 w-[44rem] h-12 mx-auto p-2 justify-between items-center bg-white rounded-3xl">
-            <div className="w-7 h-6 flex justify-center items-center rounded-full text-gray-500 bg-paleWhite">
-              <span className="w-4 h-4">{searchIcon}</span>
-            </div>
-            <input
-              type="text"
-              placeholder="Search on Google or type a URL"
-              className="w-full bg-transparent border-0 placeholder:text-gray-500 text-base text-gray-900 outline-none "
-            />
-            <div className="w-8 h-6 flex cursor-pointer justify-center items-center rounded-full text-chromeTextColor hover:bg-paleWhite">
-              <span className="w-5 h-5">{micColoredIcon}</span>
-            </div>
-            <div className="w-8 h-6 flex cursor-pointer justify-center items-center rounded-full text-chromeTextColor hover:bg-paleWhite">
-              <span className="w-5 h-5">{cameraIcon}</span>
+          <div className="max-w-[44rem] h-12 mx-auto">
+            <div className="flex z-20 relative  gap-2 w-full h-full  p-2 justify-between items-center bg-white rounded-3xl">
+              <div className="w-7 h-6 flex justify-center items-center rounded-full text-gray-500 bg-paleWhite">
+                <span className="w-4 h-4">{searchIcon}</span>
+              </div>
+              <input
+                type="text"
+                placeholder="Search on Google or type a URL"
+                className="w-full bg-transparent border-0 placeholder:text-gray-500 text-base text-gray-900 outline-none "
+              />
+              <div className="w-8 h-6 flex cursor-pointer justify-center items-center rounded-full text-chromeTextColor hover:bg-paleWhite">
+                <span className="w-5 h-5">{micColoredIcon}</span>
+              </div>
+              <div className="w-8 h-6 flex cursor-pointer justify-center items-center rounded-full text-chromeTextColor hover:bg-paleWhite">
+                <span className="w-5 h-5">{cameraIcon}</span>
+              </div>
             </div>
           </div>
         </div>

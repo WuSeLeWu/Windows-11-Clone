@@ -2,18 +2,9 @@ import React, { useState, useRef, useCallback, useEffect } from "react";
 import NotepadWindow from "../windows/NotepadWindow";
 import ChromeWindow from "../windows/ChromeWindow";
 
-const DraggableFolder = ({
-  icon,
-  name,
-  initialX,
-  initialY,
-  onMove,
-  onEndMove,
-}) => {
+const useDraggable = (initialX, initialY, onMove, onEndMove) => {
   const [position, setPosition] = useState({ x: initialX, y: initialY });
   const [isDragging, setIsDragging] = useState(false);
-  const [showNotepad, setShowNotepad] = useState(false);
-  const [showChrome, setShowChrome] = useState(false);
   const ref = useRef(null);
 
   const handleMouseDown = (e) => {
@@ -23,34 +14,23 @@ const DraggableFolder = ({
 
   const handleMouseMove = useCallback(
     (e) => {
-      if (isDragging) {
-        const folderWidth = ref.current.offsetWidth;
-        const folderHeight = ref.current.offsetHeight;
+      if (!isDragging) return;
 
-        // Get the container element's dimensions
-        const container = ref.current.parentElement;
-        const containerRect = container.getBoundingClientRect();
+      const folderWidth = ref.current.offsetWidth;
+      const folderHeight = ref.current.offsetHeight;
+      const container = ref.current.parentElement;
+      const containerRect = container.getBoundingClientRect();
 
-        // Yeni konum hesapla
-        let newX = e.clientX - folderWidth / 2 - containerRect.left;
-        let newY = e.clientY - folderHeight / 2 - containerRect.top;
+      let newX = e.clientX - folderWidth / 2 - containerRect.left;
+      let newY = e.clientY - folderHeight / 2 - containerRect.top;
+      newX = Math.max(0, Math.min(newX, containerRect.width - folderWidth));
+      newY = Math.max(
+        0,
+        Math.min(newY, containerRect.height - folderHeight - 48)
+      );
 
-        // Sınırları kontrol et
-        newX = Math.max(0, Math.min(newX, containerRect.width - folderWidth));
-        newY = Math.max(0, Math.min(newY, containerRect.height - folderHeight));
-
-        // Görev çubuğunu dikkate alarak alt sınırı ayarla
-        const taskbarHeight = 48; // Görev çubuğu yüksekliği
-        newY = Math.min(
-          newY,
-          containerRect.height - folderHeight - taskbarHeight
-        );
-
-        setPosition({ x: newX, y: newY });
-
-        // Move eventini tetikle
-        onMove && onMove(ref.current.id, { x: newX, y: newY });
-      }
+      setPosition({ x: newX, y: newY });
+      onMove && onMove(ref.current.id, { x: newX, y: newY });
     },
     [isDragging, onMove]
   );
@@ -59,15 +39,6 @@ const DraggableFolder = ({
     setIsDragging(false);
     onEndMove && onEndMove(ref.current.id, position);
   }, [onEndMove, position]);
-
-  const handleDoubleClick = () => {
-    if (name === "Notepad") {
-      setShowNotepad(true);
-    }
-    if (name === "Chrome") {
-      setShowChrome(true);
-    }
-  };
 
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove);
@@ -78,10 +49,45 @@ const DraggableFolder = ({
     };
   }, [handleMouseMove, handleMouseUp]);
 
+  return { ref, position, handleMouseDown };
+};
+
+const DraggableFolder = ({
+  icon,
+  name,
+  initialX,
+  initialY,
+  onMove,
+  onEndMove,
+}) => {
+  const { ref, position, handleMouseDown } = useDraggable(
+    initialX,
+    initialY,
+    onMove,
+    onEndMove
+  );
+
+  const [openWindow, setOpenWindow] = useState(null);
+
+  const handleDoubleClick = () => {
+    setOpenWindow(name);
+  };
+
+  const renderWindow = () => {
+    switch (openWindow) {
+      case "Notepad":
+        return <NotepadWindow onClose={() => setOpenWindow(null)} />;
+      case "Chrome":
+        return <ChromeWindow onClose={() => setOpenWindow(null)} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       <div
-        className="pale-bg w-[60px] overflow-hidden flex-col absolute select-none text-center hover:bg-paleWhite text-3xl z-50"
+        className="pale-bg w-[60px] flex-col absolute select-none text-center hover:bg-paleWhite text-3xl z-50"
         ref={ref}
         id={position.id}
         style={{
@@ -96,8 +102,7 @@ const DraggableFolder = ({
         <div className="text-white text-xs">{name}</div>
       </div>
 
-      {showNotepad && <NotepadWindow onClose={() => setShowNotepad(false)} />}
-      {showChrome && <ChromeWindow onClose={() => setShowChrome(false)} />}
+      {renderWindow()}
     </>
   );
 };
