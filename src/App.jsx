@@ -9,19 +9,12 @@ import { w11BgDark } from "./constanst/ico-img-source.js";
 
 function App() {
   const [folders, setFolders] = useState(windowApps);
-  const [openWindows, setOpenWindows] = useState([]); // Açılan pencereleri tutan state
+  const [openWindows, setOpenWindows] = useState([]);
   const handleMove = (id, newPosition) => {
     setFolders((prevFolders) =>
       prevFolders.map((folder) =>
         folder.id === id ? { ...folder, ...newPosition } : folder
       )
-    );
-  };
-
-  const handleEndMove = (id, position) => {
-    console.log(
-      `Move ended for folder with ID: ${id}, final position:`,
-      position
     );
   };
 
@@ -69,16 +62,15 @@ function App() {
               initialY={folder.initialY}
               style={folder.style}
               onMove={handleMove}
-              onEndMove={handleEndMove}
-              onOpenWindow={handleOpenWindow} // Pencere açıldığında görev çubuğuna ekler
-              onCloseWindow={handleCloseWindow} // Pencere kapandığında görev çubuğundan çıkarır
+              onOpenWindow={handleOpenWindow}
+              onCloseWindow={handleCloseWindow}
             />
           ))}
           <SelectionBox />
         </div>
         <Taskbar
           onStartButtonClick={toggleStartMenu}
-          openWindows={openWindows} // Görev çubuğuna açık pencereleri gönder
+          openWindows={openWindows}
         />
       </div>
     </>
